@@ -30,86 +30,6 @@ DiGraph.prototype.childrenOf = function(node){
 	return childrenNodes;
 }
 
-var findPath_DFS = function(graph, start, end, path){
-	if (start.data == end.data)
-		return path;
-
-	var temp_path = [];
-	if (path.length > 0){
-		for (var i=0; i<path.length; i++)
-			temp_path.push(path[i]);
-	}
-
-	temp_path.push(start);
-	//printPath(temp_path);
-	var possibleNodes = graph.childrenOf(start);
-	for (var i=0; i<possibleNodes.length; i++){
-		//printPath(temp_path);
-		//console.log("node: "+possibleNodes[i].data);
-		if (temp_path.indexOf(possibleNodes[i]) == -1){
-			if (possibleNodes[i].data == end.data){
-				temp_path.push(possibleNodes[i]);
-				//console.log("finally");
-				//printPath(temp_path);
-				return temp_path;
-			}else {
-				var new_path = findPath_DFS(graph, possibleNodes[i], end, temp_path);
-				if (new_path != undefined)
-					return new_path;
-				//return new_path;
-			}
-		}
-	}
-	//return new_path;
-}
-
-var findShortestPath_DFS = function(graph, start, end, shortest_path, path){
-	if (start.data == end.data)
-		return path;
-
-	var temp_path = [];
-	if (path.length > 0){
-		for (var i=0; i<path.length; i++)
-			temp_path.push(path[i]);
-	}
-
-	temp_path.push(start);
-	//printPath(temp_path);
-	var possibleNodes = graph.childrenOf(start);
-	for (var i=0; i<possibleNodes.length; i++){
-		//printPath(temp_path);
-		//console.log("node: "+possibleNodes[i].data);
-		if (temp_path.indexOf(possibleNodes[i]) == -1){
-			if (possibleNodes[i].data == end.data){
-				temp_path.push(possibleNodes[i]);
-				//console.log("finally");
-				//printPath(temp_path);
-				return temp_path;
-			}else {
-				var new_path = findShortestPath_DFS(graph, possibleNodes[i], end, shortest_path, temp_path);
-				if (new_path != undefined){
-					printPath(new_path);
-					if (shortest_path.length == 0){
-						for(var i=0; i<new_path.length; i++){
-							shortest_path.push(new_path[i]);
-						}
-					}else if(new_path.length < shortest_path.length){
-						for (var i=0; i<shortest_path.length; i++)
-							shortest_path[i] = new_path[i];
-
-						shortest_path.splice(new_path.length, shortest_path.length-new_path.length);
-
-					}
-
-				}
-					//return new_path;
-				//return new_path;
-			}
-		}
-	}
-	//return new_path;
-}
-
 var findShortestPath_Dijkstra = function(graph, source, target){
 	var dist = [];
 	var visited = [];
@@ -186,7 +106,7 @@ var printPath = function(path){
 	console.log("]");
 };
 
-var testPath = function(){
+var testPath = function(){ //creating a graph for testing purpose
 	var g = new DiGraph();
 	var nodes = [];
 	for (var i=0; i<6; i++){
@@ -220,4 +140,3 @@ var testPath = function(){
 };
 
 testPath();
-
