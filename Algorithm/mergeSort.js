@@ -1,6 +1,6 @@
+//merge sort pth to rth elements of an array
 function mergeSortRoutine(array, p, r){
-	//merge sort pth to rth elements of an array
-	//console.log("input= " + array);
+
 	if ((r-p) < 1){
 		return;
 	}else if((r-p) == 1){
@@ -13,39 +13,18 @@ function mergeSortRoutine(array, p, r){
 
 	}
 		//return;
-
 	var mid = Math.floor((p+r) / 2);
-	//var left = array.slice(0, mid);
-	//var right = array.slice(mid, array.length);
+
 	mergeSortRoutine(array, p, mid);
 	mergeSortRoutine(array, mid+1, r);
 
-
-	/*while (left_idx < array.length-1 && right_idx < array.length){
-		if(array[left_idx] < array[right_idx]){
-
-
-		}else {
-			temp = array[right_idx];
-			array[right_idx] = array[left_idx];
-			array[left_idx] = temp;
-			temp = array[left_idx+1];
-			array[left_idx+1] = array[right_idx];
-			array[right_idx] = temp;
-			right_idx += 1;
-
-		}
-		left_idx += 1;
-	}*/
 	//var left_idx = 0;
 	var right_idx = mid+1;
 	for (var i=p; i<=r; i++){
-		console.log (p, r, array);
+		//console.log (p, r, array);
 		if (right_idx > r)
 			break;
-		//if (i > right_idx)
-		//	break;
-			//right_idx = array.length-1;
+
 		if (i == right_idx)
 			right_idx += 1;
 
@@ -55,17 +34,7 @@ function mergeSortRoutine(array, p, r){
 				array[j] = array[j-1];
 			}
 			array[i] = temp;
-			/*temp = array[i];
-			array[i] = array[right_idx];
-			array[right_idx] = temp;
-			if (i+1 < mid){
-				temp = array[i+1];
-				array[i+1] = array[right_idx];
-				array[right_idx] = temp;
 
-			}*/
-
-			//i += 1;
 			right_idx += 1;
 
 		}else{
@@ -74,38 +43,46 @@ function mergeSortRoutine(array, p, r){
 		}
 		//right_idx += 1;
 	}
+	//console.log(array);
+	return;
+}
 
+var mergeSort = function(array){
+	if (array.length <= 1)
+		return array;
 
+	var mid = Math.floor(array.length/2);
+	var sorted_left = mergeSort(array.slice(0, mid));
+	var sorted_right = mergeSort(array.slice(mid, array.length));
+	//console.log("left sorted=" + sorted_left);
+	//console.log("right sorted=" + sorted_right);
 
-	/*var sorted_arr = [];
-	//var leftEle = sorted_left.shift
-	while (sorted_left.length > 0 || sorted_right.length > 0 ){
+	var sorted_arr = [];
+	while(sorted_left.length > 0 || sorted_right.length > 0){
 		if (sorted_left.length == 0){
 			sorted_arr = sorted_arr.concat(sorted_right);
-			sorted_right = [];
 			break;
-		}
-		if (sorted_right.length == 0){
+		}else if(sorted_right.length == 0){
 			sorted_arr = sorted_arr.concat(sorted_left);
 			break;
 		}
 		var ele = (sorted_left[0] < sorted_right[0]) ? sorted_left.shift() : sorted_right.shift();
 		sorted_arr.push(ele);
-
-	}*/
-	console.log(array);
-	//return sorted_arr;
-	return;
-
+	}
+	return sorted_arr;
 }
 
-var mergeSort = function(Array){
+// do in place merge sort
+var mergeSort2 = function(Array){
 	console.log("initial Array= " + Array);
 	mergeSortRoutine(Array, 0, Array.length-1);
-	console.log("final Array= " + Array);
-
+	console.log("final Array= " + Array); //final Array= 1,2,3,4,5,6,8,9,20
 }
+
+/**********test cases***************/
 var array = [8, 2, 4, 5, 6, 1, 9, 20, 3];
-//console.log("input array= " + array);
-mergeSort(array);
-console.log("output array= " + array);
+console.log("input array= " + array);
+//mergeSort2(array);
+new_arr = mergeSort(array);
+console.log("merge sorted array= " + new_arr); //output array= 1,2,3,4,5,6,8,9,20
+mergeSort2(array);
