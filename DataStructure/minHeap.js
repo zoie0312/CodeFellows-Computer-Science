@@ -1,4 +1,4 @@
-var MinHeap = function(heaped_arr){
+var MinHeap = function(heaped_arr){ // a Heap which min is on root
 	this.arr = heaped_arr || (new Array());
 
 }
@@ -34,7 +34,7 @@ MinHeap.prototype.insert = function(value){
 	}
 }
 
-MinHeap.prototype.delete = function(value){
+MinHeap.prototype.delete = function(value){ //delete a specific node
 	for(var i=0; i<this.arr.length; i++){
 		if (this.arr[i] == value){
 			var parent_idx = i;
@@ -83,6 +83,7 @@ MinHeap.prototype.printHeap = function(){
 	console.log(this.arr);
 }
 
+/************Test cases**************/
 var myHeap = new MinHeap();
 myHeap.insert(14);
 myHeap.insert(10);
@@ -92,6 +93,6 @@ myHeap.insert(7);
 myHeap.insert(5);
 myHeap.insert(3);
 myHeap.insert(1);
-myHeap.printHeap();
+myHeap.printHeap(); //[ 1, 3, 5, 8, 10, 12, 7, 14 ]
 myHeap.delete(1);
-myHeap.printHeap();
+myHeap.printHeap(); //[ 3, 8, 5, 14, 10, 12, 7 ]
